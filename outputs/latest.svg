@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1710" height="1050" viewBox="0 0 1710 1050">
+<rect width="100%" height="100%" fill="#181818"/>
+<rect x="540.0" y="420.0" width="600.0" height="480.0" fill="none" stroke="white" stroke-width="6" stroke-linejoin="miter"/>
+<rect x="543.0" y="423.0" width="594.0" height="474.0" fill="none" stroke="white" stroke-width="2" stroke-linejoin="miter"/>
+<text x="840.0" y="660.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Living Room</text>
+<text x="840.0" y="888.0" fill="white" font-size="10" text-anchor="middle" dominant-baseline="middle">5.0×4.0m</text>
+<rect x="1140.0" y="420.0" width="360.0" height="360.0" fill="none" stroke="white" stroke-width="6" stroke-linejoin="miter"/>
+<rect x="1143.0" y="423.0" width="354.0" height="354.0" fill="none" stroke="white" stroke-width="2" stroke-linejoin="miter"/>
+<text x="1320.0" y="600.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Kitchen</text>
+<text x="1320.0" y="768.0" fill="white" font-size="10" text-anchor="middle" dominant-baseline="middle">3.0×3.0m</text>
+<rect x="60.0" y="420.0" width="480.0" height="480.0" fill="none" stroke="white" stroke-width="6" stroke-linejoin="miter"/>
+<rect x="63.0" y="423.0" width="474.0" height="474.0" fill="none" stroke="white" stroke-width="2" stroke-linejoin="miter"/>
+<text x="300.0" y="660.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Master Bedroom</text>
+<text x="300.0" y="888.0" fill="white" font-size="10" text-anchor="middle" dominant-baseline="middle">4.0×4.0m</text>
+<rect x="432.0" y="60.0" width="336.0" height="360.0" fill="none" stroke="white" stroke-width="6" stroke-linejoin="miter"/>
+<rect x="435.0" y="63.0" width="330.0" height="354.0" fill="none" stroke="white" stroke-width="2" stroke-linejoin="miter"/>
+<text x="600.0" y="240.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Bathroom</text>
+<text x="600.0" y="408.0" fill="white" font-size="10" text-anchor="middle" dominant-baseline="middle">2.8×3.0m</text>
+<rect x="810.0" y="60.0" width="420.0" height="360.0" fill="none" stroke="white" stroke-width="6" stroke-linejoin="miter"/>
+<rect x="813.0" y="63.0" width="414.0" height="354.0" fill="none" stroke="white" stroke-width="2" stroke-linejoin="miter"/>
+<text x="1020.0" y="240.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Guest Room</text>
+<text x="1020.0" y="408.0" fill="white" font-size="10" text-anchor="middle" dominant-baseline="middle">3.5×3.0m</text>
+<rect x="1140.0" y="810.0" width="240.0" height="180.0" fill="none" stroke="white" stroke-width="6" stroke-linejoin="miter"/>
+<rect x="1143.0" y="813.0" width="234.0" height="174.0" fill="none" stroke="white" stroke-width="2" stroke-linejoin="miter"/>
+<text x="1260.0" y="900.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Balcony</text>
+<text x="1260.0" y="978.0" fill="white" font-size="10" text-anchor="middle" dominant-baseline="middle">2.0×1.5m</text>
+<rect x="1230.0" y="60.0" width="420.0" height="360.0" fill="none" stroke="white" stroke-width="6" stroke-linejoin="miter"/>
+<rect x="1233.0" y="63.0" width="414.0" height="354.0" fill="none" stroke="white" stroke-width="2" stroke-linejoin="miter"/>
+<text x="1440.0" y="240.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Kids Room</text>
+<text x="1440.0" y="408.0" fill="white" font-size="10" text-anchor="middle" dominant-baseline="middle">3.5×3.0m</text>
+<rect x="1137.0" y="590.0" width="8" height="20" fill="#181818" stroke="none"/>
+<path d="M 1130.00 600.00 A 20.00 20.00 0 0 1 1150.00 580.00" stroke="white" stroke-width="3" fill="none"/>
+<rect x="537.0" y="650.0" width="8" height="20" fill="#181818" stroke="none"/>
+<path d="M 550.00 660.00 A 20.00 20.00 0 0 1 530.00 680.00" stroke="white" stroke-width="3" fill="none"/>
+<rect x="590.0" y="417.0" width="20" height="8" fill="#181818" stroke="none"/>
+<path d="M 600.00 430.00 A 20.00 20.00 0 0 1 580.00 410.00" stroke="white" stroke-width="3" fill="none"/>
+<rect x="1010.0" y="417.0" width="20" height="8" fill="#181818" stroke="none"/>
+<path d="M 1020.00 430.00 A 20.00 20.00 0 0 1 1000.00 410.00" stroke="white" stroke-width="3" fill="none"/>
+<rect x="1227.0" y="230.0" width="8" height="20" fill="#181818" stroke="none"/>
+<path d="M 1220.00 240.00 A 20.00 20.00 0 0 1 1240.00 220.00" stroke="white" stroke-width="3" fill="none"/>
+<rect x="1137.0" y="890.0" width="8" height="20" fill="#181818" stroke="none"/>
+<path d="M 1130.00 900.00 A 20.00 20.00 0 0 1 1150.00 880.00" stroke="white" stroke-width="3" fill="none"/>
+</svg>

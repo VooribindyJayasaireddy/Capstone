@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="770" height="1200" viewBox="0 0 770 1200">
+<rect width="100%" height="100%" fill="black"/>
+<rect x="0.0" y="0.0" width="350.0" height="300.0" fill="none" stroke="white" stroke-width="3"/>
+<text x="175.0" y="150.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Living Room</text>
+<rect x="370.0" y="0.0" width="250.0" height="250.0" fill="none" stroke="white" stroke-width="3"/>
+<text x="495.0" y="125.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Kitchen</text>
+<rect x="370.0" y="300.0" width="150.0" height="100.0" fill="none" stroke="white" stroke-width="3"/>
+<text x="445.0" y="350.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Balcony</text>
+<rect x="370.0" y="450.0" width="300.0" height="300.0" fill="none" stroke="white" stroke-width="3"/>
+<text x="520.0" y="600.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Guest Bedroom</text>
+<rect x="370.0" y="800.0" width="300.0" height="300.0" fill="none" stroke="white" stroke-width="3"/>
+<text x="520.0" y="950.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Kids Bedroom</text>
+<rect x="0.0" y="320.0" width="150.0" height="200.0" fill="none" stroke="white" stroke-width="3"/>
+<text x="75.0" y="420.0" fill="white" font-size="16" text-anchor="middle" dominant-baseline="middle">Bathroom</text>
+<line x1="435.0" y1="300.0" x2="455.0" y2="300.0" stroke="black" stroke-width="6"/>
+</svg>
