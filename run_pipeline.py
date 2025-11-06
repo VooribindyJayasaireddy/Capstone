@@ -9,12 +9,17 @@ try:
 except Exception:
     extract_structured_plan = None
 
+try:
+    from ai_placement import suggest_placements
+except Exception:
+    suggest_placements = None
+
 from layout_gen import compact_snapping_layout
 from layout_optimize import optimize_layout
 from render_svg_v2 import render_plan
 
-OUT_SVG = "out_floorplan_v2.svg"
-OUT_PNG = "out_floorplan_v2.png"
+OUT_SVG = "out_floorplan_ai.svg"
+OUT_PNG = "out_floorplan_ai.png"
 
 # A simple lightweight Room class used for the hard-coded fallback plan
 class SimpleRoom:
@@ -185,31 +190,89 @@ def main(prompt=None, use_gemini=True):
             if a and b:
                 doors.append({"from_room": a, "to_room": b})
 
-    # 5) assemble simple furniture suggestions (sofa in living)
+    # 5) AI furniture and window placement suggestions
     furniture = []
-    living_id = None
-    for r in plan.rooms:
-        if "living" in getattr(r, "type", "").lower() or "living" in getattr(r, "id", "").lower():
-            living_id = r.id
-            break
-    if living_id and living_id in coords_opt:
-        lx,ly,lw,lh = coords_opt[living_id]
-        sofa_w, sofa_h = 1.6, 0.8
-        sofa_x = lx + (lw - sofa_w)/2
-        sofa_y = ly + (lh - sofa_h)/2 - 0.2
-        furniture.append({"type":"sofa", "rect": (sofa_x, sofa_y, sofa_w, sofa_h)})
-        # small table
-        table_w, table_h = 0.9, 0.6
-        table_x = sofa_x + sofa_w + 0.2
-        table_y = sofa_y + (sofa_h - table_h)/2
-        furniture.append({"type":"table", "rect": (table_x, table_y, table_w, table_h)})
+    windows = []
+    if suggest_placements:
+        print("\n5) Getting AI furniture and window placement suggestions...")
+        try:
+            # Create a wrapper plan with coordinates (without modifying Pydantic objects)
+            class RoomWithCoords:
+                """Wrapper that adds coords to a room without modifying the original object."""
+                def __init__(self, room, coords_tuple):
+                    self._room = room
+                    self.coords = coords_tuple
+                def __getattr__(self, name):
+                    return getattr(self._room, name)
+            
+            class PlanWithCoords:
+                """Wrapper plan that includes rooms with coordinates."""
+                def __init__(self, plan, coords_dict):
+                    self.rooms = [RoomWithCoords(r, coords_dict.get(r.id)) for r in plan.rooms]
+                    # Convert doors to JSON-serializable format
+                    doors_raw = getattr(plan, "doors", []) or []
+                    self.doors = []
+                    for d in doors_raw:
+                        if isinstance(d, dict):
+                            self.doors.append(d)
+                        else:
+                            # Pydantic object - convert to dict
+                            a = getattr(d, "from_room", None) or (d.get("from") if hasattr(d, "get") else None)
+                            b = getattr(d, "to_room", None) or (d.get("to") if hasattr(d, "get") else None)
+                            if a and b:
+                                door_dict = {"from_room": a, "to_room": b}
+                                if hasattr(d, "count"):
+                                    door_dict["count"] = getattr(d, "count", 1)
+                                self.doors.append(door_dict)
+                    self.notes = getattr(plan, "notes", None)
+            
+            plan_with_coords = PlanWithCoords(plan, coords_opt)
+            placements = suggest_placements(plan_with_coords)
+            ai_furniture = placements.get("furniture", [])
+            windows = placements.get("windows", [])
+            
+            # Convert furniture from room-relative to absolute coordinates
+            # AI returns rect as [x,y,w,h] where x,y are relative to room origin
+            for item in ai_furniture:
+                room_id = item.get("room_id")
+                if room_id and room_id in coords_opt:
+                    rx, ry, rw, rh = coords_opt[room_id]
+                    rel_x, rel_y, rel_w, rel_h = item.get("rect", [0,0,0,0])
+                    # Convert to absolute coordinates by adding room position
+                    abs_x = rx + rel_x
+                    abs_y = ry + rel_y
+                    furniture.append({
+                        "type": item.get("type", "furniture"),
+                        "rect": (abs_x, abs_y, rel_w, rel_h)
+                    })
+            print(f"  -> AI placed {len(furniture)} furniture items and {len(windows)} windows")
+        except Exception as e:
+            print(f"  -> AI placement failed, using fallback: {e}")
+            traceback.print_exc()
+            # Fallback to simple placement
+            furniture = []
+            for r in plan.rooms:
+                if "living" in getattr(r, "type", "").lower() and r.id in coords_opt:
+                    lx,ly,lw,lh = coords_opt[r.id]
+                    furniture.append({"type":"sofa", "rect": (lx + (lw-1.6)/2, ly + (lh-0.8)/2, 1.6, 0.8)})
+                    furniture.append({"type":"table", "rect": (lx + (lw-0.9)/2, ly + (lh-0.6)/2 + 0.2, 0.9, 0.6)})
+                    break
+    else:
+        print("\n5) AI placement not available, using simple fallback...")
+        # Simple fallback
+        for r in plan.rooms:
+            if "living" in getattr(r, "type", "").lower() and r.id in coords_opt:
+                lx,ly,lw,lh = coords_opt[r.id]
+                furniture.append({"type":"sofa", "rect": (lx + (lw-1.6)/2, ly + (lh-0.8)/2, 1.6, 0.8)})
+                furniture.append({"type":"table", "rect": (lx + (lw-0.9)/2, ly + (lh-0.6)/2 + 0.2, 0.9, 0.6)})
+                break
 
     # 6) render using render_svg_v2.render_plan
-    print("\n4) Rendering final plan to SVG/PNG...")
+    print("\n6) Rendering final plan to SVG/PNG...")
     labels = {r.id: r.type for r in plan.rooms}
     try:
-        render_plan(coords_opt, labels, doors=doors, fixtures=None, furniture=furniture, out_svg=OUT_SVG, px_per_m=130)
-        print("\nSaved:", OUT_SVG, "(PNG:", OUT_PNG, "if cairosvg installed)")
+        render_plan(coords_opt, labels, doors=doors, fixtures=None, furniture=furniture, windows=windows, out_svg=OUT_SVG, px_per_m=130)
+        print(f"\nSaved: {OUT_SVG} (PNG: {OUT_PNG} if cairosvg installed)")
     except Exception as e:
         print("Rendering failed. Error:")
         traceback.print_exc()
